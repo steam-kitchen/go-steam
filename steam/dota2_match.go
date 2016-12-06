@@ -1,7 +1,6 @@
 package steam
 
 import (
-	"errors"
 	"net/url"
 	"strconv"
 )
@@ -81,14 +80,10 @@ type Dota2MatchDetails struct {
 func (i *IDota2Match) GetMatchDetails(id uint64) (*Dota2MatchDetails, error) {
 	v := url.Values{"match_id": {strconv.FormatUint(id, 10)}}
 	var r struct {
-		Result *Dota2MatchDetails `json:"result,omitempty"`
-		Error  *string            `json:"error,omitempty"`
+		Result *Dota2MatchDetails `json:"result"`
 	}
 	if err := i.c.get(i.ifname+"/GetMatchDetails/v1/", v, &r); err != nil {
 		return nil, err
-	}
-	if r.Error != nil {
-		return nil, errors.New(*r.Error)
 	}
 	return r.Result, nil
 }

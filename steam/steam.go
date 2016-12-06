@@ -72,5 +72,18 @@ func (c *Client) get(u string, params url.Values, v interface{}) error {
 	if resp.StatusCode != 200 {
 		return errors.New(string(body))
 	}
+	if len(body) < 0xff {
+		var r struct {
+			Result struct {
+				Error *string `json:"error,omitempty"`
+			}
+		}
+		if err := json.Unmarshal(body, &r); err != nil {
+			return err
+		}
+		if r.Result.Error != nil {
+			return &Error{*r.Result.Error}
+		}
+	}
 	return json.Unmarshal(body, v)
 }
