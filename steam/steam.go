@@ -60,7 +60,7 @@ func (c *Client) get(u string, params url.Values, v interface{}) error {
 	params.Set("format", "json")
 	params.Set("key", c.token)
 	u = "https://api.steampowered.com/" + u + "?" + params.Encode()
-	resp, err := http.Get(u)
+	resp, err := c.h.Get(u)
 	if err != nil {
 		return err
 	}
