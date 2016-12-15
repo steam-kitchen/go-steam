@@ -21,6 +21,9 @@ type Dota2MatchDetails struct {
 		Item3             int      `json:"item_3"`
 		Item4             int      `json:"item_4"`
 		Item5             int      `json:"item_5"`
+		Backpack0         int      `json:"backpack_0"`
+		Backpack1         int      `json:"backpack_1"`
+		Backpack2         int      `json:"backpack_2"`
 		Kills             int      `json:"kills"`
 		Deaths            int      `json:"deaths"`
 		Assists           int      `json:"assists"`
@@ -44,13 +47,16 @@ type Dota2MatchDetails struct {
 			Level   int `json:"level"`
 		} `json:"ability_upgrades"`
 		AdditionalUnits []struct {
-			UnitName string `json:"unitname"`
-			Item0    int    `json:"item_0"`
-			Item1    int    `json:"item_1"`
-			Item2    int    `json:"item_2"`
-			Item3    int    `json:"item_3"`
-			Item4    int    `json:"item_4"`
-			Item5    int    `json:"item_5"`
+			UnitName  string `json:"unitname"`
+			Item0     int    `json:"item_0"`
+			Item1     int    `json:"item_1"`
+			Item2     int    `json:"item_2"`
+			Item3     int    `json:"item_3"`
+			Item4     int    `json:"item_4"`
+			Item5     int    `json:"item_5"`
+			Backpack0 int    `json:"backpack_0"`
+			Backpack1 int    `json:"backpack_1"`
+			Backpack2 int    `json:"backpack_2"`
 		} `json:"additional_units,omitempty"`
 	} `json:"players"`
 	RadiantWin            bool   `json:"radiant_win"`
