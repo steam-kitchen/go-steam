@@ -63,8 +63,8 @@ type Dota2MatchDetails struct {
 	Duration              int    `json:"duration"`
 	PreGameDuration       int    `json:"pre_game_duration"`
 	StartTime             int    `json:"start_time"`
-	MatchID               uint64 `json:"match_id"`
-	MatchSeqNum           uint64 `json:"match_seq_num"`
+	MatchID               int64  `json:"match_id"`
+	MatchSeqNum           int64  `json:"match_seq_num"`
 	TowerStatusRadiant    int    `json:"tower_status_radiant"`
 	TowerStatusDire       int    `json:"tower_status_dire"`
 	BarracksStatusRadiant int    `json:"barracks_status_radiant"`
@@ -83,8 +83,8 @@ type Dota2MatchDetails struct {
 	DireScore             int    `json:"dire_score"`
 }
 
-func (i *IDota2Match) GetMatchDetails(id uint64) (*Dota2MatchDetails, error) {
-	v := url.Values{"match_id": {strconv.FormatUint(id, 10)}}
+func (i *IDota2Match) GetMatchDetails(id int64) (*Dota2MatchDetails, error) {
+	v := url.Values{"match_id": {strconv.FormatInt(id, 10)}}
 	var r struct {
 		Result *Dota2MatchDetails `json:"result"`
 	}
