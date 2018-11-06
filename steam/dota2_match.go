@@ -34,7 +34,7 @@ type Dota2MatchDetails struct {
 	Engine                int                       `json:"engine"`
 	RadiantScore          int                       `json:"radiant_score"`
 	DireScore             int                       `json:"dire_score"`
-	PicksBans             struct {
+	PicksBans             []struct {
 		IsPick bool `json:"is_pick"`
 		HeroID int  `json:"hero_id"`
 		Team   int  `json:"team"`
