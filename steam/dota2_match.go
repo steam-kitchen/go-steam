@@ -112,9 +112,9 @@ type Dota2MatchHistory struct {
 	} `json:"matches"`
 }
 
-func (i *IDota2Match) GetMatchDetails(id int64, includePersonaNames bool) (*Dota2MatchDetails, error) {
+func (i *IDota2Match) GetMatchDetails(id uint64, includePersonaNames bool) (*Dota2MatchDetails, error) {
 	v := url.Values{
-		"match_id":              {strconv.FormatInt(id, 10)},
+		"match_id":              {strconv.FormatUint(id, 10)},
 		"include_persona_names": {"1"},
 	}
 	var r struct {
