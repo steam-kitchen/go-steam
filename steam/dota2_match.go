@@ -126,16 +126,16 @@ func (i *IDota2Match) GetMatchDetails(id uint64, includePersonaNames bool) (*Dot
 	return r.Result, nil
 }
 
-type Dota2matchHistoryParams url.Values
+type Dota2MatchHistoryParams url.Values
 
-func (p Dota2matchHistoryParams) SetStartAtMatchID(matchID uint64) {
+func (p Dota2MatchHistoryParams) SetStartAtMatchID(matchID uint64) {
 	url.Values(p).Set("start_at_match_id", strconv.FormatUint(matchID, 10))
 }
-func (p Dota2matchHistoryParams) SetMatchesRequested(length string) {
+func (p Dota2MatchHistoryParams) SetMatchesRequested(length string) {
 	url.Values(p).Set("start_at_match_id", length)
 }
 
-func (i *IDota2Match) GetMatchHistory(params Dota2matchHistoryParams) (*Dota2MatchHistory, error) {
+func (i *IDota2Match) GetMatchHistory(params Dota2MatchHistoryParams) (*Dota2MatchHistory, error) {
 
 	var r struct {
 		Result *Dota2MatchHistory `json:"result"`
