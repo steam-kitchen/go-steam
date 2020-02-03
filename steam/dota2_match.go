@@ -55,7 +55,7 @@ type Dota2MatchDetailsPlayer struct {
 	Backpack0         int      `json:"backpack_0"`
 	Backpack1         int      `json:"backpack_1"`
 	Backpack2         int      `json:"backpack_2"`
-	Backpack3         int      `json:"backpack_3"`
+	ItemNeutral       int      `json:"item_neutral"`
 	Kills             int      `json:"kills"`
 	Deaths            int      `json:"deaths"`
 	Assists           int      `json:"assists"`

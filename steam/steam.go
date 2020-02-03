@@ -3,7 +3,6 @@ package steam
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -31,25 +30,17 @@ func (c *Client) SteamUser() *ISteamUser {
 	return i
 }
 
-func (c *Client) Dota2Match(id ...int) *IDota2Match {
+func (c *Client) Dota2Match() *IDota2Match {
 	i := new(IDota2Match)
-	ids := 570
 	i.c = c
-	if len(id) > 0 {
-		ids = id[0]
-	}
-	i.ifname = fmt.Sprintf("IDOTA2Match_%v", ids)
+	i.ifname = "IDOTA2Match_570"
 	return i
 }
 
-func (c *Client) EconDota2(id ...int) *IEconDota2 {
+func (c *Client) EconDota2() *IEconDota2 {
 	i := new(IEconDota2)
-	ids := 570
 	i.c = c
-	if len(id) > 0 {
-		ids = id[0]
-	}
-	i.ifname = fmt.Sprintf("IEconDOTA2_%v", ids)
+	i.ifname = "IEconDOTA2_570"
 	return i
 }
 
