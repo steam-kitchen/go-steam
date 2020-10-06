@@ -16,21 +16,21 @@ type Dota2MatchDetails struct {
 	Duration              int                       `json:"duration"`
 	PreGameDuration       int                       `json:"pre_game_duration"`
 	StartTime             int                       `json:"start_time"`
-	MatchID               uint64                    `json:"match_id"`
-	MatchSeqNum           uint64                    `json:"match_seq_num"`
-	TowerStatusRadiant    uint32                    `json:"tower_status_radiant"`
-	TowerStatusDire       uint32                    `json:"tower_status_dire"`
-	BarracksStatusRadiant uint32                    `json:"barracks_status_radiant"`
-	BarracksStatusDire    uint32                    `json:"barracks_status_dire"`
+	MatchID               int64                     `json:"match_id"`
+	MatchSeqNum           int64                     `json:"match_seq_num"`
+	TowerStatusRadiant    uint16                    `json:"tower_status_radiant"`
+	TowerStatusDire       uint16                    `json:"tower_status_dire"`
+	BarracksStatusRadiant uint8                     `json:"barracks_status_radiant"`
+	BarracksStatusDire    uint8                     `json:"barracks_status_dire"`
 	Cluster               int                       `json:"cluster"`
 	FirstBloodTime        int                       `json:"first_blood_time"`
 	LobbyType             int                       `json:"lobby_type"`
 	HumanPlayers          int                       `json:"human_players"`
-	LeagueID              uint32                    `json:"leagueid"`
+	LeagueID              int32                     `json:"leagueid"`
 	PositiveVotes         int                       `json:"positive_votes"`
 	NegativeVotes         int                       `json:"negative_votes"`
 	GameMode              int                       `json:"game_mode"`
-	Flags                 uint32                    `json:"flags"`
+	Flags                 int                       `json:"flags"`
 	Engine                int                       `json:"engine"`
 	RadiantScore          int                       `json:"radiant_score"`
 	DireScore             int                       `json:"dire_score"`
@@ -45,7 +45,7 @@ type Dota2MatchDetails struct {
 type Dota2MatchDetailsPlayer struct {
 	AccountID         SteamID3 `json:"account_id"`
 	PlayerSlot        byte     `json:"player_slot"`
-	HeroID            uint32   `json:"hero_id"`
+	HeroID            int      `json:"hero_id"`
 	Item0             int      `json:"item_0"`
 	Item1             int      `json:"item_1"`
 	Item2             int      `json:"item_2"`
@@ -80,17 +80,17 @@ type Dota2MatchDetailsPlayer struct {
 		Level   int `json:"level"`
 	} `json:"ability_upgrades"`
 	AdditionalUnits []struct {
-		UnitName  string `json:"unitname"`
-		Item0     int    `json:"item_0"`
-		Item1     int    `json:"item_1"`
-		Item2     int    `json:"item_2"`
-		Item3     int    `json:"item_3"`
-		Item4     int    `json:"item_4"`
-		Item5     int    `json:"item_5"`
-		Backpack0 int    `json:"backpack_0"`
-		Backpack1 int    `json:"backpack_1"`
-		Backpack2 int    `json:"backpack_2"`
-		Backpack3 int    `json:"backpack_3"`
+		UnitName    string `json:"unitname"`
+		Item0       int    `json:"item_0"`
+		Item1       int    `json:"item_1"`
+		Item2       int    `json:"item_2"`
+		Item3       int    `json:"item_3"`
+		Item4       int    `json:"item_4"`
+		Item5       int    `json:"item_5"`
+		Backpack0   int    `json:"backpack_0"`
+		Backpack1   int    `json:"backpack_1"`
+		Backpack2   int    `json:"backpack_2"`
+		ItemNeutral int    `json:"item_neutral"`
 	} `json:"additional_units,omitempty"`
 }
 
@@ -100,12 +100,12 @@ type Dota2MatchHistory struct {
 	TotalResults     int `json:"total_results"`
 	ResultsRemaining int `json:"results_remaining"`
 	Matches          []struct {
-		MatchID       uint64 `json:"match_id"`
-		MatchSeqNum   uint64 `json:"match_seq_num"`
-		StartTime     int    `json:"start_time"`
-		LobbyType     int    `json:"lobby_type"`
-		RadiantTeamID uint   `json:"radiant_team_id"`
-		DireTeamID    uint   `json:"dire_team_id"`
+		MatchID       int64 `json:"match_id"`
+		MatchSeqNum   int64 `json:"match_seq_num"`
+		StartTime     int   `json:"start_time"`
+		LobbyType     int   `json:"lobby_type"`
+		RadiantTeamID uint  `json:"radiant_team_id"`
+		DireTeamID    uint  `json:"dire_team_id"`
 		Players       []struct {
 			AccountID  SteamID3 `json:"account_id"`
 			PlayerSlot int      `json:"player_slot"`
@@ -114,9 +114,9 @@ type Dota2MatchHistory struct {
 	} `json:"matches"`
 }
 
-func (i *IDota2Match) GetMatchDetails(id uint64, includePersonaNames bool) (*Dota2MatchDetails, error) {
+func (i *IDota2Match) GetMatchDetails(id int64, includePersonaNames bool) (*Dota2MatchDetails, error) {
 	v := url.Values{
-		"match_id":              {strconv.FormatUint(id, 10)},
+		"match_id":              {strconv.FormatInt(id, 10)},
 		"include_persona_names": {"1"},
 	}
 	var r struct {
@@ -130,8 +130,8 @@ func (i *IDota2Match) GetMatchDetails(id uint64, includePersonaNames bool) (*Dot
 
 type Dota2MatchHistoryParams url.Values
 
-func (p Dota2MatchHistoryParams) SetStartAtMatchID(matchID uint64) {
-	url.Values(p).Set("start_at_match_id", strconv.FormatUint(matchID, 10))
+func (p Dota2MatchHistoryParams) SetStartAtMatchID(matchID int64) {
+	url.Values(p).Set("start_at_match_id", strconv.FormatInt(matchID, 10))
 }
 func (p Dota2MatchHistoryParams) SetMatchesRequested(length string) {
 	url.Values(p).Set("start_at_match_id", length)

@@ -2,25 +2,25 @@ package steam
 
 import "strconv"
 
-const idMagicNumber uint64 = 76561197960265728
+const idMagicNumber int64 = 76561197960265728
 
 const idAnonymouse = SteamID3(4294967295)
 
 type SteamID interface {
-	SteamID() uint64
-	FriendID() uint32
+	SteamID() int64
+	FriendID() int32
 	SteamID64() SteamID64
 	SteamID3() SteamID3
 }
 
-type SteamID64 uint64
+type SteamID64 int64
 
-func (s SteamID64) SteamID() uint64 {
-	return uint64(s)
+func (s SteamID64) SteamID() int64 {
+	return int64(s)
 }
 
-func (s SteamID64) FriendID() uint32 {
-	return uint32(uint64(s) - idMagicNumber)
+func (s SteamID64) FriendID() int32 {
+	return int32(int64(s) - idMagicNumber)
 }
 
 func (s SteamID64) SteamID64() SteamID64 {
@@ -32,17 +32,17 @@ func (s SteamID64) SteamID3() SteamID3 {
 }
 
 func (s SteamID64) String() string {
-	return strconv.FormatUint(uint64(s), 10)
+	return strconv.FormatInt(int64(s), 10)
 }
 
 type SteamID3 uint32
 
-func (s SteamID3) SteamID() uint64 {
-	return uint64(s) + idMagicNumber
+func (s SteamID3) SteamID() int64 {
+	return int64(s) + idMagicNumber
 }
 
-func (s SteamID3) FriendID() uint32 {
-	return uint32(s)
+func (s SteamID3) FriendID() int32 {
+	return int32(s)
 }
 
 func (s SteamID3) SteamID64() SteamID64 {
